@@ -24,12 +24,8 @@ var start = function () {
   taskRef.on("value", function (snap) {
     var val = snap.val()
     if (val == null) {
+      // NOTE: Waiting for all logs are printed and removed. Any good way to do so?
       setTimeout(function () { process.exit() }, 300)
-      // bufferRef.child("log").on("value", function (snap) {
-      //   if (snap.val() == null) {
-      //     process.exit()
-      //   }
-      // })
     } else {
       if (val._state == 'error') {
         console.log("RUNNER: Worker Error: " + val._error_details.error)
