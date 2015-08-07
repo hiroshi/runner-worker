@@ -1,0 +1,14 @@
+{
+  "name": "runner",
+  "version": "0.1.0",
+  "description": "",
+  "main": "runner.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hiroshi Saito",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^2.2.9"
+  }
+}
