@@ -13,7 +13,7 @@ var cmdArgs = process.argv.slice(3)
 var queueRef = new Firebase(queueUrl)
 var start = function () {
   console.log("WORKER: waiting a runner pushed a task...")
-  new Queue(queueRef, function (data, progress, resolve, reject) {
+  var queue = new Queue(queueRef, function (data, progress, resolve, reject) {
     // Read and process task data
     var bufferRef = new Firebase(data.bufferUrl)
     var log = function (msg) {
@@ -39,6 +39,14 @@ var start = function () {
       }
       console.log("WORKER: waiting a runner pushed another task...")
     })
+  })
+  // graceful shutdown
+  process.on('SIGINT', function () {
+    console.log('WORKER: Starting queue shutdown...');
+    queue.shutdown().then(function () {
+      console.log('WORKER: Finished queue shutdown.');
+      process.exit(1)
+    });
   })
 }
 
