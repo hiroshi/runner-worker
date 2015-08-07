@@ -48,6 +48,13 @@ var start = function () {
       process.exit(1)
     });
   })
+  // presence of worker
+  queueRef.root().child('.info/connected').on('value', function(snapshot) {
+    if (snapshot.val()) {
+      var workerRef = queueRef.child("workers").push({hostname: require('os').hostname()})
+      workerRef.onDisconnect().remove();
+    }
+  })
 }
 
 if (process.env.FIREBASE_TOKEN) {
