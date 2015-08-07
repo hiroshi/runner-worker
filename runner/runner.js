@@ -16,14 +16,6 @@ process.argv.slice(3).map(function (keyVal) {
 
 var queueRef = new Firebase(queueUrl)
 var start = function () {
-  if (process.FIREBASE_TOKEN) {
-    queueRef.auth(process.FIREBASE_TOKEN, function (error, result) {
-      if (error) {
-        console.log("Authentication Failed!", error);
-      }
-    })
-    delete env.FIREBASE_TOKEN
-  }
   var bufferRef = queueRef.child('buffers').push(null)
   var taskRef = queueRef.child('tasks').push({bufferUrl: bufferRef.toString(), env: env}, function (err) {
     console.log("RUNNER: task pushed: env: " + JSON.stringify(env))
