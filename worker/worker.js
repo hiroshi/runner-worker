@@ -12,6 +12,7 @@ var cmdArgs = process.argv.slice(3)
 
 var queueRef = new Firebase(queueUrl)
 var start = function () {
+  console.log("WORKER: waiting a runner pushed a task...")
   new Queue(queueRef, function (data, progress, resolve, reject) {
     // Read and process task data
     var bufferRef = new Firebase(data.bufferUrl)
@@ -36,16 +37,17 @@ var start = function () {
         log("\nWORKER: command failed.\n\n")
         reject("exit code: " + code)
       }
+      console.log("WORKER: waiting a runner pushed another task...")
     })
-  });
+  })
 }
 
 if (process.env.FIREBASE_TOKEN) {
   queueRef.authWithCustomToken(process.env.FIREBASE_TOKEN, function (error, result) {
     if (error) {
-      console.log("Authentication Failed!", error);
+      console.log("WORKER: Authentication Failed:", error)
     } else {
-      console.log("Authentication succeeded!", result);
+      console.log("WORKER: Authentication succeeded!")
       start()
     }
   })

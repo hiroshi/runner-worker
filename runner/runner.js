@@ -19,6 +19,7 @@ var start = function () {
   var bufferRef = queueRef.child('buffers').push(null)
   var taskRef = queueRef.child('tasks').push({bufferUrl: bufferRef.toString(), env: env}, function (err) {
     console.log("RUNNER: task pushed: env: " + JSON.stringify(env))
+    console.log("RUNNER: waitning a worker process the task...")
   })
   taskRef.on("value", function (snap) {
     var val = snap.val()
@@ -48,9 +49,9 @@ var start = function () {
 if (process.env.FIREBASE_TOKEN) {
   queueRef.authWithCustomToken(process.env.FIREBASE_TOKEN, function (error, result) {
     if (error) {
-      console.log("Authentication Failed!", error);
+      console.log("RUNNER: Authentication Failed:", error)
     } else {
-      console.log("Authentication succeeded!", result);
+      console.log("RUNNER: Authentication succeeded!")
       start()
     }
   })
