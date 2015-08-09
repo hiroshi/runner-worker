@@ -2,7 +2,7 @@ runner-worker
 =============
 
 - A runner pushs a task with pairs of env to a queue.
-- A worker pop the task and execute a command, specified at start time, with the env.
+- A worker pops the task and execute a command, specified at start time, with the env.
 - A runner and a worker can be anywhare with internet connection.
 - Implemented with node.js as a simple wrapper of [Firebase Queue](https://github.com/firebase/firebase-queue).
 
