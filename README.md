@@ -12,10 +12,10 @@ runner-worker
 Start a worker.
 
 ```
-(cd worker && npm install)
-node worker/worker.js https://runner-worker.firebaseio-demo.com/queue printenv hello
+$ (cd worker && npm install)
+$ node worker/worker.js https://runner-worker.firebaseio-demo.com/queue printenv hello
 WORKER: waiting a runner pushed a task...
-(you may see some warning about index...)
+# you may see some warning about index...
 ```
 
 You can see your worker's presence on https://runner-worker.firebaseio-demo.com/queue.
@@ -23,8 +23,8 @@ You can see your worker's presence on https://runner-worker.firebaseio-demo.com/
 Then, start a runner.
 
 ```
-(cd runner && npm install)
-node runner/runner.js https://runner-worker.firebaseio-demo.com/queue hello=world
+$ (cd runner && npm install)
+$ node runner/runner.js https://runner-worker.firebaseio-demo.com/queue hello=world
 RUNNER: task pushed: env: {"hello":"world"}
 RUNNER: waitning a worker process the task...
 WORKER: start command: printenv,hello
@@ -35,10 +35,6 @@ WORKER: command completed.
 ```
 
 Back to the terminal which the worker is running. You will see same output of runner.
-
-Do you get it?
-- A runner push a set of envs as a task in the queue
-- A worker pop the task from the queue, then pass the envs to specified command
 
 
 ## What is it good for?
