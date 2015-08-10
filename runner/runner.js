@@ -32,7 +32,7 @@ var start = function () {
         if (val._error_details.error_stack) {
           console.log(val._error_details.error_stack)
         }
-        process.exit()
+        process.exit(1)
       }
     }
   })
