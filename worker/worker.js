@@ -12,6 +12,13 @@ var cmdArgs = process.argv.slice(3)
 
 var queueRef = new Firebase(queueUrl)
 var start = function () {
+  // presence of worker
+  queueRef.root().child('.info/connected').on('value', function(snapshot) {
+    if (snapshot.val()) {
+      var workerRef = queueRef.child("workers").push({hostname: require('os').hostname()})
+      workerRef.onDisconnect().remove();
+    }
+  })
   console.log("WORKER: waiting a runner pushed a task...")
   var queue = new Queue(queueRef, function (data, progress, resolve, reject) {
     // Read and process task data
@@ -47,13 +54,6 @@ var start = function () {
       console.log('WORKER: Finished queue shutdown.');
       process.exit(1)
     });
-  })
-  // presence of worker
-  queueRef.root().child('.info/connected').on('value', function(snapshot) {
-    if (snapshot.val()) {
-      var workerRef = queueRef.child("workers").push({hostname: require('os').hostname()})
-      workerRef.onDisconnect().remove();
-    }
   })
 }
 
