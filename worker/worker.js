@@ -1,3 +1,4 @@
+var os = require('os')
 var spawn = require('child_process').spawn
 var Queue = require('firebase-queue'),
     Firebase = require('firebase')
