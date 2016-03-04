@@ -32,7 +32,12 @@ var start = function () {
     for (var name in data.env) {
       env[name] = data.env[name]
     }
-    var cmd = spawn(cmdArgs[0], cmdArgs.slice(1), { env: env })
+    var cmd
+    if (os.platform() === 'win32') {
+      cmd = spawn(process.env.comspec, ['/c'].concat(cmdArgs), { env: env })
+    } else {
+      cmd = spawn(cmdArgs[0], cmdArgs.slice(1), { env: env })
+    }
     cmd.stdout.on('data', log)
     cmd.stderr.on('data', log)
     cmd.on('error', function (err) { reject(err) })
