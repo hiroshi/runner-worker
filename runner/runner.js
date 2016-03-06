@@ -19,7 +19,7 @@ var start = function () {
   var bufferRef = queueRef.child('buffers').push(null)
   var taskRef = queueRef.child('tasks').push({bufferUrl: bufferRef.toString(), env: env}, function (err) {
     console.log("RUNNER: task pushed: env: " + JSON.stringify(env))
-    console.log("RUNNER: waitning a worker process the task...")
+    console.log("RUNNER: waitning a worker processes the task...")
   })
   taskRef.on("value", function (snap) {
     var val = snap.val()
