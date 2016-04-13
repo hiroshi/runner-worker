@@ -45,3 +45,7 @@ Back to the terminal which the worker is running. You will see same output of ru
 ## Security
 
 - See [Firebase queue security](https://github.com/firebase/firebase-queue#queue-security)
+
+## Caveates
+
+- FirebaseQueue may set task timeout 5 minutes by default. If you need more longer time, say 1h, you need to set `{"timeout": 3600000, "in_progress_state": "in_progress"}` to `$queue_url/specs/default`.
