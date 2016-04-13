@@ -21,7 +21,7 @@ var start = function () {
     }
   })
   console.log("WORKER: waiting a runner pushes a task...")
-  var queue = new Queue(queueRef, function (data, progress, resolve, reject) {
+  var queue = new Queue(queueRef, {specId: 'default'}, function (data, progress, resolve, reject) {
     // Read and process task data
     var bufferRef = new Firebase(data.bufferUrl)
     var log = function (msg) {
