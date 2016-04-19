@@ -33,11 +33,12 @@ var start = function () {
     for (var name in data.env) {
       env[name] = data.env[name]
     }
+    var options = { env: env, stdio: ['ignore', 'pipe', 'pipe'] }
     var cmd
     if (os.platform() === 'win32') {
-      cmd = spawn(process.env.comspec, ['/c'].concat(cmdArgs), { env: env })
+      cmd = spawn(process.env.comspec, ['/c'].concat(cmdArgs), options)
     } else {
-      cmd = spawn(cmdArgs[0], cmdArgs.slice(1), { env: env })
+      cmd = spawn(cmdArgs[0], cmdArgs.slice(1), options)
     }
     cmd.stdout.on('data', log)
     cmd.stderr.on('data', log)
