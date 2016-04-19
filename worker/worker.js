@@ -33,7 +33,7 @@ var start = function () {
     for (var name in data.env) {
       env[name] = data.env[name]
     }
-    var options = { env: env, stdio: ['ignore', 'pipe', 'pipe'] }
+    var options = { env: env, stdio: ['ignore', 'pipe', 'pipe'], detached: true }
     var cmd
     if (os.platform() === 'win32') {
       cmd = spawn(process.env.comspec, ['/c'].concat(cmdArgs), options)
